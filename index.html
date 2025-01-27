@@ -1,17 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interface Design</title>
-    <link rel="stylesheet" href="styles.css">
-    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
 
+        .menu {
+            margin-bottom: 20px;
+        }
+
+        .results {
+            display: flex;
+            gap: 20px;
+        }
+
+        .student {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;             
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        video {
+            width: 1039px;
+            height: 584px;
+            border-radius: 5px;
+        }
+
+        .description {
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+        
+        .title {
+            
+        }
+        
+        .creator {
+            
+        }
+    </style>
 </head>
+<body style="overflow-x: hidden">
 
-<body>
-    <h1>This is a heading</h1>
-    <p>This is a paragraph.</p>
+<!-- Menü zur Auswahl der Personen (wird später versteckt) -->
+<div class="menu" id="menu">
+    <label for="person1">Person 1:</label>
+    <select id="person1">
+        <option value="">-- Wähle eine Person --</option>
+    </select>
 
+    <label for="person2">Person 2:</label>
+    <select id="person2">
+        <option value="">-- Wähle eine Person --</option>
+    </select>
+    
+    <button id="loadResults">Ergebnisse anzeigen</button>
+</div>
+
+<!-- Bereich, um die Ergebnisse der Personen anzuzeigen -->
+<div class="results hidden" id="results" style="display: flex; flex-direction: column; padding: 0 80px">
+    <h1>Interface Design</h1>
+    <div id="student1" class="student">
+        <div style="display: flex; flex-direction: row; justify-content: space-between">
+            <video controls id="video1">
+                <source src="" type="video/mp4">
+                Dein Browser unterstützt kein Video.
+            </video>
+            <iframe id="prototype1"></iframe>
+        </div>
+        <div id="title1" class="title"></div>
+        <div id="description1" class="description"></div>
+        <div id="creator1" class="creator"></div>
+    </div>
+    <div id="student2" class="student">
+        <div style="display: flex; flex-direction: row; justify-content: space-between">
+            <video controls id="video2">
+                <source src="" type="video/mp4">
+                Dein Browser unterstützt kein Video.
+            </video>
+            <iframe id="prototype2"></iframe>
+        </div>
+        <div id="title2" class="title"></div>
+        <div id="description2" class="description"></div>
+        <div id="creator2" class="creator"></div>
+    </div>
+</div>
+
+<script>
+    class Project {
+        title;
+        video;
+        description;  
+        name;
+        prototypeLink;
+    }
+    
+    // Projekt erstellen
+    // Daten der Personen: Video-Pfade und Beschreibungen
+    const christopher = new Project();
+    christopher.name = "Christopher Chlebowski";
+    christopher.video = "./videos/video_christopher_chlebowski.mp4";
+    christopher.description = "Eine Beschreibung";
+    christopher.title = "Ein Titel";
+    christopher.prototypeLink = "https://embed.figma.com/proto/Cp3saPA332a9vXh7W6gupG/APL?node-id=364-736&scaling=scale-down&content-scaling=fixed&page-id=364%3A735&starting-point-node-id=364%3A736&show-proto-sidebar=1&embed-host=share"
+    
+    // Sammlung
+    const projekte = [];
+    projekte.push(christopher);
+
+    // Menü-Elemente auswählen
+    const person1Select = document.getElementById("person1");
+    const person2Select = document.getElementById("person2");
+    const menu = document.getElementById("menu");
+    const results = document.getElementById("results");
+
+    // Dropdowns mit Optionen füllen
+    projekte.forEach((projekt, index) => {
+        const option1 = new Option(projekt.name, index);
+        const option2 = new Option(projekt.name, index);
+        person1Select.add(option1);
+        person2Select.add(option2);
+    });
+    
+    // Event Listener für "Ergebnisse anzeigen"-Button
+    document.getElementById("loadResults").addEventListener("click", () => {
+        const person1Id = person1Select.value;
+        const person2Id = person2Select.value;
+
+        // Überprüfen, ob beide Personen ausgewählt wurden
+        if (!person1Id || !person2Id) {
+            alert("Bitte wähle zwei Personen aus.");
+            return;
+        }
+
+        // Inhalte für Person 1 laden
+        const student1 = projekte[person1Id];
+        document.getElementById("video1").src = student1.video;
+        document.getElementById("description1").innerText = student1.description;
+        document.getElementById("title1").innerText = student1.title;
+        document.getElementById("creator1").innerText = "By " + student1.name;
+        document.getElementById("prototype1").src = student1.prototypeLink;
+
+        // Inhalte für Person 2 laden
+        const student2 = projekte[person2Id];
+        document.getElementById("video2").src = student2.video;
+        document.getElementById("description2").innerText = student2.description;
+        document.getElementById("title2").innerText = student2.title;
+        document.getElementById("creator2").innerText = "By " + student2.name;
+        document.getElementById("prototype2").src = student1.prototypeLink;
+
+        // Menü ausblenden und Ergebnisse anzeigen
+        menu.classList.add("hidden");
+        results.classList.remove("hidden");
+    });
+</script>
 </body>
-
 </html>
-
