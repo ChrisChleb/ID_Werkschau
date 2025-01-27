@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet"> 
 
     <link rel="stylesheet" href="style.css">
+    <link rel="javascript" href="dynamischeSteuerung.js">
     
     <title>Interface Design</title>
 
@@ -34,7 +35,7 @@
     <h1>Interface Design</h1>
     <div id="student1" class="student">
         <div style="display: flex; flex-direction: row; justify-content: space-between">
-            <video controls id="video1">
+            <video autoplay loop controls id="video1">
                 <source src="" type="video/mp4">
                 Dein Browser unterstützt kein Video.
             </video>
@@ -46,11 +47,12 @@
     </div>
     <div id="student2" class="student">
         <div style="display: flex; flex-direction: row; justify-content: space-between">
-            <video controls id="video2">
+            <video autoplay loop controls id="video2">
                 <source src="" type="video/mp4">
                 Dein Browser unterstützt kein Video.
             </video>
             <iframe id="prototype2"></iframe>
+
         </div>
         <div id="title2" class="title"></div>
         <div id="description2" class="description"></div>
@@ -76,9 +78,18 @@
     christopher.title = "Ein Titel";
     christopher.prototypeLink = "https://embed.figma.com/proto/Cp3saPA332a9vXh7W6gupG/APL?node-id=364-736&scaling=scale-down&content-scaling=fixed&page-id=364%3A735&starting-point-node-id=364%3A736&show-proto-sidebar=1&embed-host=share"
     
+    const christina = new Project();
+    christina.name = "Christina Epple";
+    christina.video = "./videos/ChristinaEpple_artVenture.mov";
+    christina.description = "Hier der beschreibende Satz. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.";
+    christina.title = "artVenture";
+    christina.prototypeLink = "./img/ChristinaEpple_StartScreenConcrete.jpeg"
+    
+
     // Sammlung
     const projekte = [];
     projekte.push(christopher);
+    projekte.push(christina);
 
     // Menü-Elemente auswählen
     const person1Select = document.getElementById("person1");

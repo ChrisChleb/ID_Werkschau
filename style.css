@@ -57,3 +57,12 @@ video {
     font-weight: 300;
     line-height: normal;
 }
+
+img {
+    width: 30px; 
+    height: auto; 
+    max-width: 100%; 
+}
+
+
+
