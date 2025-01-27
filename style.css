@@ -1,1 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
 
+.menu {
+    margin-bottom: 20px;
+}
+
+.results {
+    display: flex;
+    gap: 20px;
+}
+
+.student {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;             
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+video {
+    width: 1039px;
+    height: 584px;
+    border-radius: 5px;
+}
+
+.description {
+    margin-top: 10px;
+    color: #000;
+    font-family: "Roboto Flex", "Helvetica Neue";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal; 
+}
+
+.hidden {
+    display: none;
+}
+
+.title {
+    color: #000;
+    font-family: "Roboto Flex", "Helvetica Neue";
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.creator {
+    margin-top: 2vh;
+    color: #000;
+    font-family: "Roboto Flex", "Helvetica Neue";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
