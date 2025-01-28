@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet"> 
-
     <link rel="stylesheet" href="style.css">
     <link rel="javascript" href="dynamischeSteuerung.js">
+    <link rel="javascript" href="SlideShow.js">
     
     <title>Interface Design</title>
 
@@ -17,46 +14,71 @@
 
 <!-- Menü zur Auswahl der Personen (wird später versteckt) -->
 <div class="menu" id="menu">
-    <label for="person1">Person 1:</label>
-    <select id="person1">
-        <option value="">-- Wähle eine Person --</option>
-    </select>
+    <div style="display: flex; flex-direction: row; align-items: center; gap: 16px">
+        <label for="person1">Person 1:</label>
+        <select id="person1">
+            <option value="">-- Wähle eine Person --</option>
+        </select>
+    </div>
 
-    <label for="person2">Person 2:</label>
-    <select id="person2">
-        <option value="">-- Wähle eine Person --</option>
-    </select>
+    <div style="display: flex; flex-direction: row; align-items: center; gap: 16px">
+        <label for="person2">Person 2:</label>
+        <select id="person2">
+            <option value="">-- Wähle eine Person --</option>
+        </select>
+    </div>
     
     <button id="loadResults">Ergebnisse anzeigen</button>
 </div>
 
 <!-- Bereich, um die Ergebnisse der Personen anzuzeigen -->
-<div class="results hidden" id="results" style="display: flex; flex-direction: column; padding: 0 80px">
-    <h1>Interface Design</h1>
-    <div id="student1" class="student">
-        <div style="display: flex; flex-direction: row; justify-content: space-between">
-            <video autoplay loop controls id="video1">
-                <source src="" type="video/mp4">
-                Dein Browser unterstützt kein Video.
-            </video>
-            <iframe id="prototype1"></iframe>
-        </div>
-        <div id="title1" class="title"></div>
-        <div id="description1" class="description"></div>
-        <div id="creator1" class="creator"></div>
+<div class="results hidden" id="results">
+    <div class="topbar">
+        <h1 class="headline">Interface Design</h1>
+        <div class="vertical-line"></div>
+        <p class="headline-description">Auf Auf Entdeckungsreise: Interfaces, die Neugier wecken</p>
     </div>
-    <div id="student2" class="student">
-        <div style="display: flex; flex-direction: row; justify-content: space-between">
-            <video autoplay loop controls id="video2">
-                <source src="" type="video/mp4">
-                Dein Browser unterstützt kein Video.
-            </video>
-            <iframe id="prototype2"></iframe>
-
+    <div style="margin: 88px 0">
+        <div id="student1" class="student">
+            <div style="display: flex; flex-direction: row; gap: 20px;">
+                <div style="display: flex; flex-direction: column">
+                    <video muted autoplay loop controls id="video1">
+                        <source src="" type="video/mp4">
+                        Dein Browser unterstützt kein Video.
+                    </video>
+                    <div>
+                        <p id="title1" class="title"></p>
+                        <p id="description1" class="description"></p>
+                        <p id="creator1" class="creator"></p>
+                    </div>
+                </div>
+   
+                <iframe hidden id="prototype1"></iframe>
+                <div hidden style="display: flex; flex-direction: column">
+                    <div class="slideshow-container" id="slideshow-container1"></div>
+                </div>
+            </div>
         </div>
-        <div id="title2" class="title"></div>
-        <div id="description2" class="description"></div>
-        <div id="creator2" class="creator"></div>
+        <hr>
+        <div id="student2" class="student">
+            <div style="display: flex; flex-direction: row; gap: 20px;">
+                <div style="display: flex; flex-direction: column">
+                    <video muted autoplay loop controls id="video2">
+                        <source src="" type="video/mp4">
+                        Dein Browser unterstützt kein Video.
+                    </video>
+                    <div>
+                        <p id="title2" class="title"></p>
+                        <p id="description2" class="description"></p>
+                        <p id="creator2" class="creator"></p>
+                    </div>
+                </div>
+               <iframe hidden id="prototype2"></iframe>
+                <div hidden style="display: flex; flex-direction: column">
+                    <div class="slideshow-container" id="slideshow-container2"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -66,30 +88,145 @@
         video;
         description;  
         name;
-        prototypeLink;
+        prototypeLink = null;
+        imagePaths = [];
+    }
+    class SlideShow {
+        constructor({ containerId, imagePaths}) {
+            this.container = document.getElementById(containerId);
+            this.imagePaths = imagePaths;
+
+            this.slideIndex = 0;
+            this.slides = [];
+            this.interval = null;
+
+            this.init();
+        }
+
+        init() {
+            this.renderSlides();
+            this.showSlide(this.slideIndex);
+            this.startSlideshow();
+        }
+
+        renderSlides() {
+            this.imagePaths.forEach((image, index) => {
+                // Slide-Element
+                const slide = document.createElement('img');
+                slide.src = image;
+                slide.alt = `Slide ${index + 1}`;
+                slide.className = 'slides';
+
+                // Bildzähler Anzeige (z. B. "1/6")
+                if (index === 0) {
+                    const counter = document.createElement('div');
+                    counter.className = 'image-counter';
+                    this.container.appendChild(counter);
+                }
+
+                this.container.appendChild(slide);
+            });
+
+            this.slides = this.container.querySelectorAll('.slides');
+            this.addControls();
+        }
+
+        addControls() {
+            const controls = document.createElement('div');
+            controls.className = 'slideshow-controls';
+
+            const prevButton = document.createElement('button');
+            prevButton.className = 'slideshow-button';
+            prevButton.innerHTML = '<';
+            prevButton.addEventListener('click', () => this.prevSlide());
+
+            const nextButton = document.createElement('button');
+            nextButton.className = 'slideshow-button';
+            nextButton.innerHTML = '>';
+            nextButton.addEventListener('click', () => this.nextSlide());
+
+            controls.appendChild(prevButton);
+            controls.appendChild(nextButton);
+            this.container.appendChild(controls);
+        }
+
+        showSlide(index) {
+            this.slides.forEach((slide, i) => {
+                slide.style.display = i === index ? 'block' : 'none';
+            });
+
+            const counter = this.container.querySelector('.image-counter');
+            counter.innerText = `${this.slideIndex + 1} / ${this.slides.length}`;
+        }
+
+        nextSlide() {
+            this.slideIndex = (this.slideIndex + 1) % this.slides.length;
+            this.showSlide(this.slideIndex);
+            this.resetSlideshow();
+        }
+
+        prevSlide() {
+            this.slideIndex = (this.slideIndex - 1 + this.slides.length) % this.slides.length;
+            this.showSlide(this.slideIndex);
+            this.resetSlideshow();
+        }
+
+        startSlideshow() {
+            this.interval = setInterval(() => this.nextSlide(), 3000);
+        }
+
+        resetSlideshow() {
+            clearInterval(this.interval);
+            this.startSlideshow();
+        }
     }
     
     // Projekt erstellen
     // Daten der Personen: Video-Pfade und Beschreibungen
+    // wichtig ! den figma-link anpassen mit &hide-ui=1
     const christopher = new Project();
     christopher.name = "Christopher Chlebowski";
     christopher.video = "./videos/video_christopher_chlebowski.mp4";
     christopher.description = "Hier der beschreibende Satz. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.";
-    christopher.title = "Ein Titel";
-    christopher.prototypeLink = "https://embed.figma.com/proto/Cp3saPA332a9vXh7W6gupG/APL?node-id=364-736&scaling=scale-down&content-scaling=fixed&page-id=364%3A735&starting-point-node-id=364%3A736&show-proto-sidebar=1&embed-host=share"
+    christopher.title = "Ein Titel";   
+    christopher.prototypeLink = "https://embed.figma.com/proto/Cp3saPA332a9vXh7W6gupG/APL?node-id=953-6478&scaling=contain&content-scaling=fixed&page-id=953%3A6476&starting-point-node-id=953%3A6478&embed-host=share&hide-ui=1"
     
     const christina = new Project();
     christina.name = "Christina Epple";
     christina.video = "./videos/ChristinaEpple_artVenture.mov";
     christina.description = "Hier der beschreibende Satz. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.";
     christina.title = "artVenture";
-    christina.prototypeLink = "./img/ChristinaEpple_StartScreenConcrete.jpeg"
+    christina.prototypeLink = null;
+    christina.imagePaths = [
+        "./img/ChristinaEpple/ChristinaEpple_StartScreenConcrete.jpeg"
+    ]
     
+    const emily = new Project();
+    emily.name = "Emily Singbeil";
+    emily.video = "";
+    emily.description = "Your Zinester ist eine App, um spielerisch Zinester und deren Zines zu entdecken.";
+    emily.title = "Build Your Zinester";
+    emily.prototypeLink = "https://embed.figma.com/proto/OBkZz8ej5cvTI50RZlC8cY/Build-Your-Zinester?node-id=332-10935&p=f&scaling=contain&content-scaling=fixed&page-id=332%3A10934&starting-point-node-id=332%3A10935&embed-host=share&hide-ui=1"
 
+    const ina = new Project();
+    ina.name = "Ina Becker";
+    ina.video = "";
+    ina.description = "Streetlifting ist eine Mischung aus Calisthenics und Kraftsport, bei der Athleten Eigengewichtsübungen wie Klimmzüge mit maximalem Zusatzgewicht ausführen. Die App informiert über den Sport und erleichtert die Suche nach Events";
+    ina.title = "Streetlifting - Finde dein Event!";
+    ina.prototypeLink = null;
+    ina.imagePaths = [
+        "./img/InaBecker/InaBecker_Chalk_black.jpg",
+        "./img/InaBecker/InaBecker_Chalk_wood.jpg",
+        "./img/InaBecker/InaBecker_Start_screen.png",
+        "./img/InaBecker/InaBeckerFilter_Anpassen.jpg"
+    ]
+    
     // Sammlung
     const projekte = [];
     projekte.push(christopher);
     projekte.push(christina);
+    projekte.push(emily);
+    projekte.push(ina);
 
     // Menü-Elemente auswählen
     const person1Select = document.getElementById("person1");
@@ -122,7 +259,17 @@
         document.getElementById("description1").innerText = student1.description;
         document.getElementById("title1").innerText = student1.title;
         document.getElementById("creator1").innerText = "By " + student1.name;
-        document.getElementById("prototype1").src = student1.prototypeLink;
+        if (student1.prototypeLink != null) {
+            const iframe = document.getElementById("prototype1");
+            iframe.src = student1.prototypeLink;
+            iframe.hidden = false;
+        } else if (student1.imagePaths.length > 0){
+            new SlideShow({
+                containerId: "slideshow-container1",
+                imagePaths: student1.imagePaths
+            });
+            document.getElementById("slideshow-container1").hidden = false;
+        }
 
         // Inhalte für Person 2 laden
         const student2 = projekte[person2Id];
@@ -130,8 +277,26 @@
         document.getElementById("description2").innerText = student2.description;
         document.getElementById("title2").innerText = student2.title;
         document.getElementById("creator2").innerText = "By " + student2.name;
-        document.getElementById("prototype2").src = student1.prototypeLink;
+        
+        if (student2.prototypeLink != null) {
+            const iframe = document.getElementById("prototype2");
+            iframe.src = student2.prototypeLink;
+            iframe.hidden = false;
+        } else if (student2.imagePaths.length > 0){
+            new SlideShow({
+                containerId: "slideshow-container2",
+                imagePaths: student2.imagePaths
+            });
+            document.getElementById("slideshow-container2").hidden = false;
+        }
 
+        // calc left value for topbar
+        const windowWidth = window.innerWidth;
+        const whitespace = windowWidth - 1359;
+        const root = document.querySelector(':root');
+        
+        root.style.setProperty("--left", whitespace/2);        
+        
         // Menü ausblenden und Ergebnisse anzeigen
         menu.classList.add("hidden");
         results.classList.remove("hidden");
