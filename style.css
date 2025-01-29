@@ -52,7 +52,6 @@ body {
 
 .headline-description {
     margin: 0;
-    max-width: 1039px;
     color: #000;
     font-size: 18px;
 }
@@ -99,9 +98,8 @@ body {
     display: flex;
     gap: 20px;
     flex-direction: column;
-    padding: 0 calc(50% - 50rem + 1rem);
     justify-content: center;
-    max-width: 1359px;
+    /*max-width: 1359px;*/
 }
 
 .student {
@@ -122,7 +120,7 @@ video {
 }
 
 .hidden {
-    display: none;
+    display: none!important;
 }
 
 .title {
@@ -152,14 +150,18 @@ hr {
     background-color: #ACACAC;
     height: 2px;
     margin: 24px 0;
+    position: relative;
+    z-index: 100;
 }
 
 iframe {
     border: none;
-    height: 584px;
+    /*height: 584px;*/
+    position: absolute;
+    top: -95px;
 }
 
-.slideshow-container {
+.slideshow {
     position: relative;
     width: 300px;
     overflow: hidden;
