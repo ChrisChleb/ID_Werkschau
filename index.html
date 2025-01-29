@@ -26,6 +26,13 @@
             <option value="">-- Wähle eine Person --</option>
         </select>
     </div>
+
+    <div style="display: flex; flex-direction: row; align-items: center; gap: 16px">
+        <label for="person3">Person 3:</label>
+        <select id="person3">
+            <option value="">-- Wähle eine Person --</option>
+        </select>
+    </div>
     
     <button id="loadResults">Ergebnisse anzeigen</button>
 </div>
@@ -37,6 +44,7 @@
         <div class="vertical-line"></div>
         <p class="headline-description">Auf Entdeckungsreise: Interfaces, die Neugier wecken</p>
     </div>
+    <div class="topbar-background"></div>
     <div style="margin: 88px 0">
         <div id="student1" class="student">
             <div style="display: flex; flex-direction: row; gap: 20px;">
@@ -52,15 +60,37 @@
                     </div>
                 </div>
                 <div style="position: relative" class="hidden" id="prototype-container1">
-                    <iframe height="820" width="400" id="prototype1"></iframe>
+                    <iframe height="820" width="400" id="prototype1" class="iframe"></iframe>
                 </div>                
                 <div class="hidden" id="slideshow-container1" style="display: flex; flex-direction: column">
                     <div class="slideshow" id="slideshow1"></div>
                 </div>
             </div>
         </div>
+        <!--Layout für Anna-->
+        <div id="student1-anna" class="student hidden">
+            <div style="display: flex; flex-direction: row; gap: 20px;">
+                <div style="display: flex; flex-direction: row">
+                    <video class="hidden" controls id="videoAnna">
+                        <source src="" type="video/mp4">
+                        Dein Browser unterstützt kein Video.
+                    </video>
+                    <div style="flex: 1">
+                        <p id="titleAnna" class="title"></p>
+                        <p id="descriptionAnna" class="description"></p>
+                        <p id="creatorAnna" class="creator"></p>
+                    </div>
+                    <div style="position: relative; flex: 1; height: 624px" class="hidden" id="prototype-containerAnna">
+                        <iframe height="820" width="400" style="" id="prototypeAnna" class="iframe-anna"></iframe>
+                    </div>
+                </div>
+                <div class="hidden" id="slideshow-containerAnna" style="display: flex; flex-direction: column">
+                    <div class="slideshow" id="slideshowAnna"></div>
+                </div>
+            </div>
+        </div>
         <hr>
-        <div id="student2" class="student">
+       <div id="student2" class="student">
             <div style="display: flex; flex-direction: row; gap: 20px;">
                 <div style="display: flex; flex-direction: column">
                     <video controls id="video2">
@@ -74,10 +104,53 @@
                     </div>
                 </div>
                 <div style="position: relative" class="hidden" id="prototype-container2">
-                    <iframe height="820" width="400" id="prototype2"></iframe>
+                    <iframe height="820" width="400" id="prototype2" class="iframe"></iframe>
                 </div>                
                 <div class="hidden"  id="slideshow-container2" style="display: flex; flex-direction: column">
                     <div class="slideshow" id="slideshow2"></div>
+                </div>
+            </div>
+        </div>        
+        
+<!--Das hier ist test für Querformat-->        
+<!--        <div id="student2" class="student">
+                <div style="display: flex; flex-direction: column">
+                    <video width="100%" controls id="video2">
+                        <source src="" type="video/mp4">
+                        Dein Browser unterstützt kein Video.
+                    </video>
+                    <div>
+                        <p id="title2" class="title"></p>
+                        <p id="description2" class="description"></p>
+                        <p id="creator2" class="creator"></p>
+                    </div>
+                </div>
+                <div style="position: relative" class="hidden" id="prototype-container2">
+                    <iframe height="820" width="400" id="prototype2" class="iframe"></iframe>
+                </div>
+                <div class="hidden" id="slideshow-container2" style="display: flex; flex-direction: column">
+                    <div class="slideshow" id="slideshow2"></div>
+                </div>           
+        </div>-->
+        <hr id="hr3" class="hidden">
+        <div id="student3" class="hidden student">
+            <div style="display: flex; flex-direction: row; gap: 20px;">
+                <div style="display: flex; flex-direction: column">
+                    <video controls id="video3">
+                        <source src="" type="video/mp4">
+                        Dein Browser unterstützt kein Video.
+                    </video>
+                    <div>
+                        <p id="title3" class="title"></p>
+                        <p id="description3" class="description"></p>
+                        <p id="creator3" class="creator"></p>
+                    </div>
+                </div>
+                <div style="position: relative" class="hidden" id="prototype-container3">
+                    <iframe height="820" width="400" id="prototype3" class="iframe"></iframe>
+                </div>
+                <div class="hidden"  id="slideshow-container3" style="display: flex; flex-direction: column">
+                    <div class="slideshow" id="slideshow3"></div>
                 </div>
             </div>
         </div>
@@ -94,10 +167,10 @@
         imagePaths = [];
     }
     class SlideShow {
-        constructor({ containerId, imagePaths}) {
+        constructor({ containerId, imagePaths, isHorizontal = false}) {
             this.container = document.getElementById(containerId);
             this.imagePaths = imagePaths;
-
+            this.isHorizontal = isHorizontal;
             this.slideIndex = 0;
             this.slides = [];
             this.interval = null;
@@ -112,27 +185,24 @@
         }
 
         renderSlides() {
+            // Bildzähler erstellen
+            this.counter = document.createElement('div');
+            this.counter.className = 'image-counter';
+            this.container.appendChild(this.counter);
+
             this.imagePaths.forEach((image, index) => {
                 // Slide-Element
                 const slide = document.createElement('img');
                 slide.src = image;
                 slide.alt = `Slide ${index + 1}`;
-                slide.className = 'slides';
-
-                // Bildzähler Anzeige (z. B. "1/6")
-                if (index === 0) {
-                    const counter = document.createElement('div');
-                    counter.className = 'image-counter';
-                    this.container.appendChild(counter);
-                }
+                slide.className = this.isHorizontal ? 'slides-horizontal' : 'slides';
 
                 this.container.appendChild(slide);
             });
-
-            this.slides = this.container.querySelectorAll('.slides');
+            
+            this.slides = this.container.querySelectorAll('.slides, .slides-horizontal');
             this.addControls();
         }
-
         addControls() {
             const controls = document.createElement('div');
             controls.className = 'slideshow-controls';
@@ -182,15 +252,15 @@
             this.startSlideshow();
         }
     }
-    
+        
     // Projekt erstellen
     // Daten der Personen: Video-Pfade und Beschreibungen
-    // wichtig ! den figma-link anpassen mit &hide-ui=1
+    // wichtig ! den figma-link anpassen mit &hide-ui=1 und scalin=contain
     const christopher = new Project();
     christopher.name = "Christopher Chlebowski";
     christopher.video = "./videos/Christopher.mp4";
-    christopher.description = "Hier der beschreibende Satz. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.";
-    christopher.title = "Ein Titel";   
+    christopher.description = "SoundOrbs ist eine App, die es Nutzer*innen ermöglicht, durch das spielerische Kombinieren von farbigen Spheren neue Musikwelten zu entdecken. Ähnlich wie das Erkunden von unbekannten Städten, können Nutzer*innen durch das Verschmelzen ihrer Lieblingssongs und Künstler*innen neue Klänge und unbekannte Talente auf einer interaktiven, visuellen Reise erleben.";
+    christopher.title = "SoundOrbs";
     christopher.prototypeLink = "https://embed.figma.com/proto/Cp3saPA332a9vXh7W6gupG/APL?node-id=953-6478&scaling=contain&page-id=953%3A6476&starting-point-node-id=953%3A6478&embed-host=share&hide-ui=1";
     
     const christina = new Project();
@@ -255,7 +325,7 @@
     selina.name = "Selina Natschke";
     selina.video = "./videos/Selina.mp4";
     selina.title = "loreXplore";
-    selina.description = "Eine App, in der sich Fantasybücher auf neue Arten wie über Ästhetik oder enthaltene Kreaturen entdecken lassen können. Die Bücher verstecken sich in einer Map, die in verschiedene Landschaftstypen unterteilt ist, wodurch beispielsweise eine Reise durchs »Ästhetikgebirge« die Möglichkeit bietet, Bücher anhand bestimmter Ästhetiken in der bergischen Landschaft zu entdecken. ";
+    selina.description = "Eine App, in der sich Fantasybücher auf neue Arten wie über Ästhetik oder enthaltene Kreaturen entdecken lassen können. Die Bücher verstecken sich in einer Map, die in verschiedene Landschaftstypen unterteilt ist, wodurch beispielsweise eine Reise durchs »Ästhetikgebirge« die Möglichkeit bietet, Bücher anhand bestimmter Ästhetiken in der bergischen Landschaft zu entdecken.";
     selina.prototypeLink = null;
     selina.imagePaths = [
         "./img/SelinaNatschke/Mockup1.png",
@@ -317,7 +387,7 @@
         "./img/RebeccaGrosch/mockup.png",
         "./img/RebeccaGrosch/mockup2.png"
     ]
-
+        
     // Sammlung
     const projekte = [];
     projekte.push(christopher);
@@ -338,6 +408,7 @@
     // Menü-Elemente auswählen
     const person1Select = document.getElementById("person1");
     const person2Select = document.getElementById("person2");
+    const person3Select = document.getElementById("person3");
     const menu = document.getElementById("menu");
     const results = document.getElementById("results");
 
@@ -345,43 +416,54 @@
     projekte.forEach((projekt, index) => {
         const option1 = new Option(projekt.name, index);
         const option2 = new Option(projekt.name, index);
+        const option3 = new Option(projekt.name, index);
         person1Select.add(option1);
         person2Select.add(option2);
+        person3Select.add(option3);
     });
-    
-    // Event Listener für "Ergebnisse anzeigen"-Button
-    document.getElementById("loadResults").addEventListener("click", () => {
-        const person1Id = person1Select.value;
-        const person2Id = person2Select.value;
 
-        // Überprüfen, ob beide Personen ausgewählt wurden
-        if (!person1Id || !person2Id) {
-            alert("Bitte wähle zwei Personen aus.");
-            return;
-        }
-
+    // calc left value for topbar
+    const windowWidth = window.innerWidth;
+    const whitespace = windowWidth - 1359;
+    const root = document.querySelector(':root');
+    root.style.setProperty("--left", whitespace/2);    
+    function loadData(person1Id, person2Id, person3Id) {
         // Inhalte für Person 1 laden
         const student1 = projekte[person1Id];
-        const video1 = document.getElementById("video1");
-        video1.src = student1.video;
-        video1.addEventListener('ended', () => {
-            video1.currentTime = 0;
-            video1.pause();
-        });
+        if (student1.name === "Anna Korn") {
+            document.getElementById("descriptionAnna").innerText = student1.description;
+            document.getElementById("titleAnna").innerText = student1.title;
+            document.getElementById("creatorAnna").innerText = student1.name;
 
-        document.getElementById("description1").innerText = student1.description;
-        document.getElementById("title1").innerText = student1.title;
-        document.getElementById("creator1").innerText = "By " + student1.name;
-        if (student1.prototypeLink != null) {
-            const iframe = document.getElementById("prototype1");
+            const iframe = document.getElementById("prototypeAnna");
             iframe.src = student1.prototypeLink;
-            document.getElementById("prototype-container1").classList.remove("hidden");
-        } else if (student1.imagePaths.length > 0){
-            new SlideShow({
-                containerId: "slideshow1",
-                imagePaths: student1.imagePaths
+            // show annas layout
+            document.getElementById("prototype-containerAnna").classList.remove("hidden");
+            document.getElementById("student1-anna").classList.remove("hidden");
+            // hide default layout
+            document.getElementById("student1").classList.add("hidden");
+        } else {
+            const video1 = document.getElementById("video1");
+            video1.src = student1.video;
+            video1.addEventListener('ended', () => {
+                video1.currentTime = 0;
+                video1.pause();
+                document.exitFullscreen();
             });
-            document.getElementById("slideshow-container1").classList.remove("hidden");
+            document.getElementById("description1").innerText = student1.description;
+            document.getElementById("title1").innerText = student1.title;
+            document.getElementById("creator1").innerText = student1.name;
+            if (student1.prototypeLink != null) {
+                const iframe = document.getElementById("prototype1");
+                iframe.src = student1.prototypeLink;
+                document.getElementById("prototype-container1").classList.remove("hidden");
+            } else if (student1.imagePaths.length > 0){
+                new SlideShow({
+                    containerId: "slideshow1",
+                    imagePaths: student1.imagePaths
+                });
+                document.getElementById("slideshow-container1").classList.remove("hidden");
+            }
         }
 
         // Inhalte für Person 2 laden
@@ -391,11 +473,11 @@
         video2.addEventListener('ended', () => {
             video2.currentTime = 0;
             video2.pause();
+            document.exitFullscreen();
         });
         document.getElementById("description2").innerText = student2.description;
         document.getElementById("title2").innerText = student2.title;
-        document.getElementById("creator2").innerText = "By " + student2.name;
-        
+        document.getElementById("creator2").innerText = student2.name;
         if (student2.prototypeLink != null) {
             const iframe = document.getElementById("prototype2");
             iframe.src = student2.prototypeLink;
@@ -408,17 +490,86 @@
             document.getElementById("slideshow-container2").classList.remove("hidden");
         }
 
-        // calc left value for topbar
-        const windowWidth = window.innerWidth;
-        const whitespace = windowWidth - 1359;
-        const root = document.querySelector(':root');
+        if (person3Id) {
+            // Inhalte für Person 3 laden
+            const student3 = projekte[person3Id];
+            const video3 = document.getElementById("video3");
+            video3.src = student3.video;
+            video3.addEventListener('ended', () => {
+                video3.currentTime = 0;
+                video3.pause();
+                document.exitFullscreen();
+            });
+            document.getElementById("description3").innerText = student3.description;
+            document.getElementById("title3").innerText = student3.title;
+            document.getElementById("creator3").innerText = student3.name;
+            if (student3.prototypeLink != null) {
+                const iframe = document.getElementById("prototype3");
+                iframe.src = student3.prototypeLink;
+                document.getElementById("prototype-container3").classList.remove("hidden");
+            } else if (student3.imagePaths.length > 0){
+                new SlideShow({
+                    containerId: "slideshow3",
+                    imagePaths: student3.imagePaths
+                });
+                document.getElementById("slideshow-container3").classList.remove("hidden");
+            }
+            document.getElementById("student3").classList.remove("hidden");
+            document.getElementById("hr3").classList.remove("hidden");
+        }
+    }
+    
+    // Event Listener für "Ergebnisse anzeigen"-Button
+    document.getElementById("loadResults").addEventListener("click", () => {
+        const person1Id = person1Select.value;
+        const person2Id = person2Select.value;
+        const person3Id = person3Select.value;
         
-        root.style.setProperty("--left", whitespace/2);        
+        localStorage.setItem("selection", JSON.stringify({person1Id: person1Id, person2Id: person2Id, person3Id: person3Id}));
+
+        // Überprüfen, ob beide Personen ausgewählt wurden
+        if (!person1Id || !person2Id) {
+            alert("Bitte wähle zwei Personen aus.");
+            return;
+        }        
+        
+        loadData(person1Id, person2Id, person3Id);
         
         // Menü ausblenden und Ergebnisse anzeigen
         menu.classList.add("hidden");
         results.classList.remove("hidden");
     });
+
+    const selectionFromStorage = JSON.parse(localStorage.getItem("selection"));
+    if (selectionFromStorage != null) {
+        const person1Id = selectionFromStorage.person1Id;
+        const person2Id = selectionFromStorage.person2Id;
+        const person3Id = selectionFromStorage.person3Id;
+        
+        loadData(person1Id, person2Id, person3Id);
+        
+        // Menü ausblenden und Ergebnisse anzeigen
+        menu.classList.add("hidden");
+        results.classList.remove("hidden");        
+    }
+
+    let inactivityTimer;
+    const inactivityLimit = 3 * 60 * 1000;  // 3 Minuten in Millisekunden (180000 ms)
+    function resetTimer() {
+        // Timer zurücksetzen
+        clearTimeout(inactivityTimer);
+
+        // Timer starten
+        inactivityTimer = setTimeout(() => {
+            window.scrollTo(0, 0);
+            window.location.reload();
+        }, inactivityLimit);
+    }
+
+    // Timer zurücksetzen bei Mausbewegung
+    document.addEventListener('mousemove', resetTimer);
+    
+    resetTimer();
 </script>
 </body>
 </html>
