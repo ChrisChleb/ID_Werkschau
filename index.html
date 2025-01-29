@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="javascript" href="dynamischeSteuerung.js">
     <link rel="javascript" href="SlideShow.js">
     
     <title>Interface Design</title>
@@ -42,7 +41,7 @@
         <div id="student1" class="student">
             <div style="display: flex; flex-direction: row; gap: 20px;">
                 <div style="display: flex; flex-direction: column">
-                    <video muted autoplay loop controls id="video1">
+                    <video controls id="video1">
                         <source src="" type="video/mp4">
                         Dein Browser unterstützt kein Video.
                     </video>
@@ -63,7 +62,7 @@
         <div id="student2" class="student">
             <div style="display: flex; flex-direction: row; gap: 20px;">
                 <div style="display: flex; flex-direction: column">
-                    <video muted autoplay loop controls id="video2">
+                    <video controls id="video2">
                         <source src="" type="video/mp4">
                         Dein Browser unterstützt kein Video.
                     </video>
@@ -172,7 +171,7 @@
         }
 
         startSlideshow() {
-            this.interval = setInterval(() => this.nextSlide(), 3000);
+            this.interval = setInterval(() => this.nextSlide(), 3500);
         }
 
         resetSlideshow() {
@@ -247,7 +246,7 @@
     nadja.video = "";
     nadja.title = "Characterize";
     nadja.description = "Mit Characterize können Bücher entdeckt werden, in denen Protagonisten mit gewünschten Charaktereigenschaften vorkommen.";
-    nadja.prototypeLink = null;
+    nadja.prototypeLink = "https://embed.figma.com/proto/zy88lBnVVLQsUmowDY1vz5/Prototype?page-id=0%3A1&node-id=6-1250&p=f&viewport=121%2C60%2C0.13&scaling=contain&content-scaling=fixed&embed-host=share&hide-ui=1";
 
     const selina = new Project();
     selina.name = "Selina Natschke";
@@ -261,6 +260,61 @@
         "./img/SelinaNatschke/Mockup3.png"
     ]
 
+    const charlotte = new Project();
+    charlotte.name = "Charlotte Kliem";
+    charlotte.video = "";
+    charlotte.title = "streetARt";
+    charlotte.description = "Die App streetARt ermöglicht es Nutzern, durch selbst gestaltete digitale Street-Art-Kunstwerke personalisierte Entdeckungstouren zu erstellen, die die lokale Street-Art-Kultur lebendig vermitteln. Augmented Reality-Elemente erwecken dabei sowohl die eigenen Kreationen als auch neu entdeckte Kunstwerke zum Leben und bieten ein interaktives, kreatives Erlebnis.";
+    charlotte.prototypeLink = null;
+    charlotte.imagePaths = [
+        "./img/CharlotteKliem/logo_streetArt_2.png",
+        "./img/CharlotteKliem/mock-up_start.png"
+    ]
+
+    const marie = new Project();
+    marie.name = "Marie Eichler";
+    marie.video = "";
+    marie.title = "Hall of Failure";
+    marie.description = "In der »Hall of Failure« tauchen NutzerInnen in die Welt gescheiterter Erfindungen ein. In zwei Modi lassen sich Innovationen entweder thematisch nach Kategorien oder chronologisch durch die Jahrzehnte entdecken, um ihre Geschichten und Gründe für das Scheitern zu erfahren.";
+    marie.prototypeLink = null;
+    marie.imagePaths = [
+        "./img/MarieEichler/mockup1.jpg"
+    ]
+
+    const caroline = new Project();
+    caroline.name = "Caroline Kortrijk";
+    caroline.video = "";
+    caroline.title = "MundArt";
+    caroline.description = "Die App MundArt bringt Sprachen und Dialekte spielerisch näher, denn viele sind vom Aussterben bedroht. Die Aufgabe: die Mundart auf einer Weltkarte möglichst genau lokalisieren und den eigenen Highscore schlagen. Zur Belohnung gibt es spannende Infos zur neuen Sprachentdeckung.";
+    caroline.prototypeLink = null;
+    caroline.imagePaths = [
+        "./img/CarolineKortrijk/MundArtMockup.jpg"
+    ]
+
+    const anna = new Project();
+    anna.name = "Anna Korn";
+    anna.video = "";
+    anna.title = "gurr me up";
+    anna.description = "Entdecke die Welt der Stadttauben! Begib dich auf die Suche nach den versteckten Tauben und erfahre etwas über sie und ihre Geschichte. Sammle sie alle und lass dich überraschen!";
+    anna.prototypeLink = "https://embed.figma.com/proto/siFt8p4utwXtksDPhypxi2/storyboard?node-id=93-347&scaling=contain&content-scaling=fixed&page-id=93%3A341&starting-point-node-id=93%3A342&embed-host=share&hide-ui=1" ;
+
+    const ana = new Project();
+    ana.name = "Ana-Maria Kanin";
+    ana.video = "";
+    ana.title = "";
+    ana.description = "Diese App bietet einen exklusiven Blick hinter die Kulissen von Künstler*Innen aus Deiner Stadt.";
+
+    const rebecca = new Project();
+    rebecca.name = "Rebecca Grosch";
+    rebecca.video = "";
+    rebecca.title = "Postcards";
+    rebecca.description = "In Postcards geht es darum, Postkarten aus dem letzten Jahrhundert neu zu entdecken. Dabei können die Postkarten auf verschiedene Arten sortiert, favorisiert und digital versendet werden.";
+    rebecca.prototypeLink = null;
+    rebecca.imagePaths = [
+        "./img/RebeccaGrosch/mockup.png",
+        "./img/RebeccaGrosch/mockup2.png"
+    ]
+
     // Sammlung
     const projekte = [];
     projekte.push(christopher);
@@ -271,6 +325,12 @@
     projekte.push(lina);
     projekte.push(nadja);
     projekte.push(selina);
+    projekte.push(charlotte);
+    projekte.push(marie);
+    projekte.push(caroline);
+    projekte.push(anna);
+    projekte.push(ana);
+    projekte.push(rebecca);
 
     // Menü-Elemente auswählen
     const person1Select = document.getElementById("person1");
@@ -299,7 +359,13 @@
 
         // Inhalte für Person 1 laden
         const student1 = projekte[person1Id];
-        document.getElementById("video1").src = student1.video;
+        const video1 = document.getElementById("video1");
+        video1.src = student1.video;
+        video1.addEventListener('ended', () => {
+            video1.currentTime = 0;
+            video1.pause();
+        });
+
         document.getElementById("description1").innerText = student1.description;
         document.getElementById("title1").innerText = student1.title;
         document.getElementById("creator1").innerText = "By " + student1.name;
@@ -317,7 +383,12 @@
 
         // Inhalte für Person 2 laden
         const student2 = projekte[person2Id];
-        document.getElementById("video2").src = student2.video;
+        const video2 = document.getElementById("video2");
+        video2.src = student2.video;
+        video2.addEventListener('ended', () => {
+            video2.currentTime = 0;
+            video2.pause();
+        });
         document.getElementById("description2").innerText = student2.description;
         document.getElementById("title2").innerText = student2.title;
         document.getElementById("creator2").innerText = "By " + student2.name;
