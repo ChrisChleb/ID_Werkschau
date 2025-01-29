@@ -27,11 +27,16 @@
         </select>
     </div>
 
-    <div style="display: flex; flex-direction: row; align-items: center; gap: 16px">
+    <div style="display: flex; flex-direction: row; align-items: center; gap: 16px;">
         <label for="person3">Person 3:</label>
         <select id="person3">
             <option value="">-- Wähle eine Person --</option>
         </select>
+    </div>
+    
+    <div style="display: flex; flex-direction: row; align-items: center; gap: 16px">
+        <label for="useLocalStorage">Auswahl speichern</label>
+        <input id="useLocalStorage" type="checkbox" style="height: 24px; width: 24px">
     </div>
     
     <button id="loadResults">Ergebnisse anzeigen</button>
@@ -524,14 +529,19 @@
         const person1Id = person1Select.value;
         const person2Id = person2Select.value;
         const person3Id = person3Select.value;
+        const useLocalStorageSelect = document.getElementById("useLocalStorage");
+        const useLocalStorage = useLocalStorageSelect.checked;
+        console.log("useLocalStorage",useLocalStorage);       
         
-        localStorage.setItem("selection", JSON.stringify({person1Id: person1Id, person2Id: person2Id, person3Id: person3Id}));
-
         // Überprüfen, ob beide Personen ausgewählt wurden
         if (!person1Id || !person2Id) {
             alert("Bitte wähle zwei Personen aus.");
             return;
-        }        
+        }
+
+        if (useLocalStorage) {
+            localStorage.setItem("selection", JSON.stringify({person1Id: person1Id, person2Id: person2Id, person3Id: person3Id}));
+        }
         
         loadData(person1Id, person2Id, person3Id);
         
