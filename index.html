@@ -198,7 +198,9 @@
     christina.title = "artVenture";
     christina.prototypeLink = null;
     christina.imagePaths = [
-        "./img/ChristinaEpple/ChristinaEpple_StartScreenConcrete.jpeg"
+        "./img/ChristinaEpple/ChristinaEpple_StartScreenConcrete.jpeg",
+        "./img/ChristinaEpple/3-EntdeckungsmodusHand.jpeg",
+        "./img/ChristinaEpple/5-WegbeschreibungMitHintergrund.jpeg"
     ]
     
     const emily = new Project();
@@ -247,6 +249,18 @@
     nadja.description = "Mit Characterize können Bücher entdeckt werden, in denen Protagonisten mit gewünschten Charaktereigenschaften vorkommen.";
     nadja.prototypeLink = null;
 
+    const selina = new Project();
+    selina.name = "Selina Natschke";
+    selina.video = "";
+    selina.title = "loreXplore";
+    selina.description = "Eine App, in der sich Fantasybücher auf neue Arten wie über Ästhetik oder enthaltene Kreaturen entdecken lassen können. Die Bücher verstecken sich in einer Map, die in verschiedene Landschaftstypen unterteilt ist, wodurch beispielsweise eine Reise durchs »Ästhetikgebirge« die Möglichkeit bietet, Bücher anhand bestimmter Ästhetiken in der bergischen Landschaft zu entdecken. ";
+    selina.prototypeLink = null;
+    selina.imagePaths = [
+        "./img/SelinaNatschke/Mockup1.png",
+        "./img/SelinaNatschke/Mockup2.png",
+        "./img/SelinaNatschke/Mockup3.png"
+    ]
+
     // Sammlung
     const projekte = [];
     projekte.push(christopher);
@@ -256,6 +270,7 @@
     projekte.push(linh);
     projekte.push(lina);
     projekte.push(nadja);
+    projekte.push(selina);
 
     // Menü-Elemente auswählen
     const person1Select = document.getElementById("person1");
