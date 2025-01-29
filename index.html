@@ -52,10 +52,11 @@
                         <p id="creator1" class="creator"></p>
                     </div>
                 </div>
-   
-                <iframe hidden id="prototype1"></iframe>
-                <div hidden style="display: flex; flex-direction: column">
-                    <div class="slideshow-container" id="slideshow-container1"></div>
+                <div style="position: relative" class="hidden" id="prototype-container1">
+                    <iframe height="820" width="400" id="prototype1"></iframe>
+                </div>                
+                <div class="hidden" id="slideshow-container1" style="display: flex; flex-direction: column">
+                    <div class="slideshow" id="slideshow1"></div>
                 </div>
             </div>
         </div>
@@ -73,9 +74,11 @@
                         <p id="creator2" class="creator"></p>
                     </div>
                 </div>
-               <iframe hidden id="prototype2"></iframe>
-                <div hidden style="display: flex; flex-direction: column">
-                    <div class="slideshow-container" id="slideshow-container2"></div>
+                <div style="position: relative" class="hidden" id="prototype-container2">
+                    <iframe height="820" width="400" id="prototype2"></iframe>
+                </div>                
+                <div class="hidden"  id="slideshow-container2" style="display: flex; flex-direction: column">
+                    <div class="slideshow" id="slideshow2"></div>
                 </div>
             </div>
         </div>
@@ -189,7 +192,7 @@
     christopher.video = "./videos/video_christopher_chlebowski.mp4";
     christopher.description = "Hier der beschreibende Satz. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.";
     christopher.title = "Ein Titel";   
-    christopher.prototypeLink = "https://embed.figma.com/proto/Cp3saPA332a9vXh7W6gupG/APL?node-id=953-6478&scaling=contain&content-scaling=fixed&page-id=953%3A6476&starting-point-node-id=953%3A6478&embed-host=share&hide-ui=1";
+    christopher.prototypeLink = "https://embed.figma.com/proto/Cp3saPA332a9vXh7W6gupG/APL?node-id=953-6478&scaling=contain&page-id=953%3A6476&starting-point-node-id=953%3A6478&embed-host=share&hide-ui=1";
     
     const christina = new Project();
     christina.name = "Christina Epple";
@@ -306,13 +309,13 @@
         if (student1.prototypeLink != null) {
             const iframe = document.getElementById("prototype1");
             iframe.src = student1.prototypeLink;
-            iframe.hidden = false;
+            document.getElementById("prototype-container1").classList.remove("hidden");
         } else if (student1.imagePaths.length > 0){
             new SlideShow({
-                containerId: "slideshow-container1",
+                containerId: "slideshow1",
                 imagePaths: student1.imagePaths
             });
-            document.getElementById("slideshow-container1").hidden = false;
+            document.getElementById("slideshow-container1").classList.remove("hidden");
         }
 
         // Inhalte für Person 2 laden
@@ -325,13 +328,13 @@
         if (student2.prototypeLink != null) {
             const iframe = document.getElementById("prototype2");
             iframe.src = student2.prototypeLink;
-            iframe.hidden = false;
+            document.getElementById("prototype-container2").classList.remove("hidden");
         } else if (student2.imagePaths.length > 0){
             new SlideShow({
-                containerId: "slideshow-container2",
+                containerId: "slideshow2",
                 imagePaths: student2.imagePaths
             });
-            document.getElementById("slideshow-container2").hidden = false;
+            document.getElementById("slideshow-container2").classList.remove("hidden");
         }
 
         // calc left value for topbar
