@@ -64,7 +64,7 @@
                         <p id="creator1" class="creator"></p>
                     </div>
                 </div>
-                <div style="position: relative" class="hidden" id="prototype-container1">
+                <div style="position: relative; width: 300px;" class="hidden" id="prototype-container1">
                     <iframe height="820" width="400" id="prototype1" class="iframe"></iframe>
                 </div>                
                 <div class="hidden" id="slideshow-container1" style="display: flex; flex-direction: column">
@@ -108,7 +108,7 @@
                         <p id="creator2" class="creator"></p>
                     </div>
                 </div>
-                <div style="position: relative" class="hidden" id="prototype-container2">
+                <div style="position: relative; width: 300px;" class="hidden" id="prototype-container2">
                     <iframe height="820" width="400" id="prototype2" class="iframe"></iframe>
                 </div>                
                 <div class="hidden"  id="slideshow-container2" style="display: flex; flex-direction: column">
@@ -151,7 +151,7 @@
                         <p id="creator3" class="creator"></p>
                     </div>
                 </div>
-                <div style="position: relative" class="hidden" id="prototype-container3">
+                <div style="position: relative; width: 300px;" class="hidden" id="prototype-container3">
                     <iframe height="820" width="400" id="prototype3" class="iframe"></iframe>
                 </div>
                 <div class="hidden"  id="slideshow-container3" style="display: flex; flex-direction: column">
@@ -188,7 +188,6 @@
             this.showSlide(this.slideIndex);
             this.startSlideshow();
         }
-
         renderSlides() {
             // Bildzähler erstellen
             this.counter = document.createElement('div');
