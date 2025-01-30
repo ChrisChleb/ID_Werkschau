@@ -121,28 +121,24 @@
                     <div class="slideshow" id="slideshow2"></div>
                 </div>
             </div>
-        </div>        
-        
-<!--Das hier ist test für Querformat-->        
-<!--        <div id="student2" class="student">
+        </div>
+        <!--Layout für Rebecca-->
+        <div id="student2-rebecca" class="student hidden">
                 <div style="display: flex; flex-direction: column">
-                    <video width="100%" controls id="video2">
+                    <video width="100%" controls id="video2-rebecca">
                         <source src="" type="video/mp4">
                         Dein Browser unterstützt kein Video.
                     </video>
                     <div>
-                        <p id="title2" class="title"></p>
-                        <p id="description2" class="description"></p>
-                        <p id="creator2" class="creator"></p>
+                        <p id="title2-rebecca" class="title"></p>
+                        <p id="description2-rebecca" class="description"></p>
+                        <p id="creator2-rebecca" class="creator"></p>
                     </div>
                 </div>
-                <div style="position: relative" class="hidden" id="prototype-container2">
-                    <iframe height="820" width="400" id="prototype2" class="iframe"></iframe>
-                </div>
-                <div class="hidden" id="slideshow-container2" style="display: flex; flex-direction: column">
-                    <div class="slideshow" id="slideshow2"></div>
+                <div class="hidden" id="slideshow-container2-rebecca" style="display: flex; flex-direction: column">
+                    <div class="slideshow-horizontal" id="slideshow2-rebecca"></div>
                 </div>           
-        </div>-->
+        </div>
         <hr id="hr3" class="hidden">
         <div id="student3" class="hidden student">
             <div style="display: flex; flex-direction: row; gap: 20px;">
@@ -394,8 +390,11 @@
     rebecca.description = "In Postcards geht es darum, Postkarten aus dem letzten Jahrhundert neu zu entdecken. Dabei können die Postkarten auf verschiedene Arten sortiert, favorisiert und digital versendet werden.";
     rebecca.prototypeLink = null;
     rebecca.imagePaths = [
-        "./img/RebeccaGrosch/mockup.png",
-        "./img/RebeccaGrosch/mockup2.png"
+        "./img/RebeccaGrosch/quer1.png",
+        "./img/RebeccaGrosch/quer2.png",
+        "./img/RebeccaGrosch/quer3.png",
+        "./img/RebeccaGrosch/quer4.png",
+        "./img/RebeccaGrosch/quer5.png"
     ]
 
     const samira = new Project();
@@ -483,30 +482,57 @@
                 document.getElementById("slideshow-container1").classList.remove("hidden");
             }
         }
+        
 
-        // Inhalte für Person 2 laden
+         // Inhalte für Person 2 laden
         const student2 = projekte[person2Id];
-        const video2 = document.getElementById("video2");
-        video2.src = student2.video;
-        video2.addEventListener('ended', () => {
-            video2.currentTime = 0;
-            video2.pause();
-            document.exitFullscreen();
-        });
-        document.getElementById("description2").innerText = student2.description;
-        document.getElementById("title2").innerText = student2.title;
-        document.getElementById("creator2").innerText = student2.name;
-        if (student2.prototypeLink != null) {
-            const iframe = document.getElementById("prototype2");
-            iframe.src = student2.prototypeLink;
-            document.getElementById("prototype-container2").classList.remove("hidden");
-        } else if (student2.imagePaths.length > 0){
-            new SlideShow({
-                containerId: "slideshow2",
-                imagePaths: student2.imagePaths
+        if (student2.name === "Rebecca Grosch") {
+            const video2 = document.getElementById("video2-rebecca");
+            video2.src = student2.video;
+            video2.addEventListener('ended', () => {
+                video2.currentTime = 0;
+                video2.pause();
+                document.exitFullscreen();
             });
-            document.getElementById("slideshow-container2").classList.remove("hidden");
+            document.getElementById("description2-rebecca").innerText = student2.description;
+            document.getElementById("title2-rebecca").innerText = student2.title;
+            document.getElementById("creator2-rebecca").innerText = student2.name;
+
+            new SlideShow({
+                containerId: "slideshow2-rebecca",
+                imagePaths: student2.imagePaths,
+                isHorizontal: true
+            });
+            document.getElementById("slideshow-container2-rebecca").classList.remove("hidden");
+            
+            // show rebecca layout
+            document.getElementById("student2-rebecca").classList.remove("hidden");
+            // hide default layout
+            document.getElementById("student2").classList.add("hidden");
+        } else {
+            const video2 = document.getElementById("video2");
+            video2.src = student2.video;
+            video2.addEventListener('ended', () => {
+                video2.currentTime = 0;
+                video2.pause();
+                document.exitFullscreen();
+            });
+            document.getElementById("description2").innerText = student2.description;
+            document.getElementById("title2").innerText = student2.title;
+            document.getElementById("creator2").innerText = student2.name;
+            if (student2.prototypeLink != null) {
+                const iframe = document.getElementById("prototype2");
+                iframe.src = student2.prototypeLink;
+                document.getElementById("prototype-container2").classList.remove("hidden");
+            } else if (student2.imagePaths.length > 0){
+                new SlideShow({
+                    containerId: "slideshow2",
+                    imagePaths: student2.imagePaths
+                });
+                document.getElementById("slideshow-container2").classList.remove("hidden");
+            }
         }
+
 
         if (person3Id) {
             // Inhalte für Person 3 laden

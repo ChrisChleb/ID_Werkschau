@@ -119,6 +119,11 @@ video {
     height: 584px;
 }
 
+#video2-rebecca {
+    width: 1400px;
+    height: 787.5px;
+}
+
 .description {
     margin: 16px 0 0 0;
     max-width: 1039px;
@@ -177,6 +182,12 @@ hr {
     overflow: hidden;
 }
 
+.slideshow-horizontal {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
 .slides {
     display: none;
     /*width: 100%;*/
@@ -188,11 +199,10 @@ hr {
 }
 
 .slides-horizontal {
-    width: 100%;
-    height: auto;
+    height: 400px;
     object-fit: cover;
-    transform-origin: center;
-    transform: rotate(-90deg);
+    margin: 40px 0 0 240px;
+
 }
 
 .active {
@@ -247,9 +257,9 @@ hr {
     align-items: center;
     justify-content: center;
     position: absolute;
-    left: 85px;
-    top: 80%; /* Direkt unter die Bilder setzen */
-    margin-top: 40px; /* Etwas Abstand */
+    left: 87px;
+    top: 50px; /* Direkt unter die Bilder setzen */
+    z-index: 999;
 }
 
 .image-container img {
