@@ -71,7 +71,7 @@
                 <div class="hidden" id="slideshow-container1" style="display: flex; flex-direction: column">
                     <div class="slideshow" id="slideshow1"></div>
                     <!-- Neuer Bild-Container -->
-                     <div style="position: relative;">
+                     <div id="christinaqr" style="position: relative;" class="hidden">
                         <div id="image-container1" class="image-container">
                             <img src="./img/ChristinaEpple/qrcode.png" alt="Zusätzliches Bild">
                         </div>
@@ -119,7 +119,7 @@
                     <iframe height="820" width="400" id="prototype2" class="iframe"></iframe>
                     <div id="overlayButton2" class="overlay-button" onclick="hideButton(2)"><-- interaktiv</div>
                 </div>                
-                <div class="hidden"  id="slideshow-container2" style="display: flex; flex-direction: column">
+                <div class="hidden" id="slideshow-container2" style="display: flex; flex-direction: column">
                     <div class="slideshow" id="slideshow2"></div>
                 </div>
             </div>
@@ -456,6 +456,7 @@
 
             const iframe = document.getElementById("prototypeAnna");
             iframe.src = student1.prototypeLink;
+
             // show annas layout
             document.getElementById("prototype-containerAnna").classList.remove("hidden");
             document.getElementById("student1-anna").classList.remove("hidden");
@@ -482,6 +483,9 @@
                     imagePaths: student1.imagePaths
                 });
                 document.getElementById("slideshow-container1").classList.remove("hidden");
+            }
+            if (student1.name == "Christina Epple") {
+                document.getElementById("christinaqr").classList.remove("hidden");
             }
         }
         
