@@ -247,7 +247,7 @@ hr {
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 10.5%;
+    left: 85px;
     top: 80%; /* Direkt unter die Bilder setzen */
     margin-top: 40px; /* Etwas Abstand */
 }
