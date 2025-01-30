@@ -239,3 +239,21 @@ hr {
     border-radius: 20px;
 }
 
+.image-container {
+    width: 130px;
+    height: 130px;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 10.5%;
+    top: 80%; /* Direkt unter die Bilder setzen */
+    margin-top: 40px; /* Etwas Abstand */
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
