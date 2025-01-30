@@ -66,6 +66,7 @@
                 </div>
                 <div style="position: relative; width: 300px;" class="hidden" id="prototype-container1">
                     <iframe height="820" width="400" id="prototype1" class="iframe"></iframe>
+                    <div id="overlayButton1" class="overlay-button" onclick="hideButton(1)"><-- interaktiv</div>
                 </div>                
                 <div class="hidden" id="slideshow-container1" style="display: flex; flex-direction: column">
                     <div class="slideshow" id="slideshow1"></div>
@@ -116,6 +117,7 @@
                 </div>
                 <div style="position: relative; width: 300px;" class="hidden" id="prototype-container2">
                     <iframe height="820" width="400" id="prototype2" class="iframe"></iframe>
+                    <div id="overlayButton2" class="overlay-button" onclick="hideButton(2)"><-- interaktiv</div>
                 </div>                
                 <div class="hidden"  id="slideshow-container2" style="display: flex; flex-direction: column">
                     <div class="slideshow" id="slideshow2"></div>
@@ -155,6 +157,7 @@
                 </div>
                 <div style="position: relative; width: 300px;" class="hidden" id="prototype-container3">
                     <iframe height="820" width="400" id="prototype3" class="iframe"></iframe>
+                    <div id="overlayButton3" class="overlay-button" onclick="hideButton(3)"><-- interaktiv</div>
                 </div>
                 <div class="hidden"  id="slideshow-container3" style="display: flex; flex-direction: column">
                     <div class="slideshow" id="slideshow3"></div>
@@ -284,9 +287,9 @@
     const emily = new Project();
     emily.name = "Emily Singbeil";
     emily.video = "./videos/Emily.mp4";
-    emily.description = "Mit Build Your Zinester lassen sich spielerisch Zines, basierend auf der Identität und den Interessen der Zinester, entdecken. Nutzer:innen erstellen eine Fantasiefigur, indem sie Elemente wie Flügel, Outfits oder Accessoires auswählen. Insgesamt können mit den Elementen 2688 verschiedene Charaktere erstellt werden. Im Prototyp sind bis jetzt erst 91 Variationen eingebunden. Nutze, um schneller ein Ergebnis zu bekommen am besten die Farbe Orange mit dem Schwert oder Zauberstab als Accessoire.";
+    emily.description = "Mit Build Your Zinester lassen sich spielerisch Zines, basierend auf der Identität und den Interessen der Zinester, entdecken. Nutzer:innen erstellen eine Fantasiefigur, indem sie Elemente wie Flügel, Outfits oder Accessoires auswählen. Insgesamt können mit den Elementen 2688 verschiedene Charaktere erstellt werden.";
     emily.title = "Build Your Zinester";
-    emily.prototypeLink = "https://embed.figma.com/proto/OBkZz8ej5cvTI50RZlC8cY/Build-Your-Zinester?node-id=332-10935&p=f&scaling=contain&content-scaling=fixed&page-id=332%3A10934&starting-point-node-id=332%3A10935&embed-host=share&hide-ui=1";
+    emily.prototypeLink = null;
 
     const ina = new Project();
     ina.name = "Ina Becker";
@@ -603,7 +606,7 @@
     }
 
     let inactivityTimer;
-    const inactivityLimit = 3 * 60 * 1000;  // 3 Minuten in Millisekunden (180000 ms)
+    const inactivityLimit = 5 * 60 * 1000;  // 3 Minuten in Millisekunden (180000 ms)
     function resetTimer() {
         // Timer zurücksetzen
         clearTimeout(inactivityTimer);
@@ -619,6 +622,11 @@
     document.addEventListener('mousemove', resetTimer);
     
     resetTimer();
+
+    function hideButton(id) {
+        document.getElementById("overlayButton" + id).style.display = "none";
+    }
+
 </script>
 </body>
 </html>

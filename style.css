@@ -267,3 +267,25 @@ hr {
     height: 100%;
     object-fit: cover;
 }
+
+.overlay-button {
+    position: absolute;
+    top: 35%;
+    left: 130%;
+    background-color: black;
+    color: white;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Roboto Flex", serif;
+    cursor: pointer;
+    text-align: center;
+    z-index: 10;
+    border: none;
+}
+
+.overlay-button:hover {
+    background-color: white;
+    color: #000000;
+    border: 1px solid black;
+}
